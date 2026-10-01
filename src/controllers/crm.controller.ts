@@ -63,7 +63,15 @@ export class CRMController {
     public async comprobarConflictoProfesor(profesorId: string, dia: string, franja: string): Promise<boolean> {
         // TODO: Recuperar los horarios y utilizar métodos de array (.some, .filter, etc.) 
         // para buscar coincidencias exactas.
-        throw new Error('Método no implementado');
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        if (this.horariosStorage.getAll().some((h) => h.profesorId === profesorId && h.dia === dia && h.franja === franja)) {
+            return true;
+        } else {
+            return false;
+        };
+
     }
 
     /**
