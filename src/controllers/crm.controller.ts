@@ -1,4 +1,4 @@
-import type { Asistencia, Sancion, RegistroHorario, EstadoAsistencia, TipoSancion } from '../models/interfaces.ts';
+import type { Asistencia, Sancion, RegistroHorario, EstadoAsistencia, TipoSancion, FranjaHoraria } from '../models/interfaces.ts';
 import { StorageService } from '../services/storage.service.ts';
 
 export class CRMController {
@@ -7,13 +7,31 @@ export class CRMController {
     private sancionesStorage = new StorageService<Sancion>('crm_sanciones');
     private horariosStorage = new StorageService<RegistroHorario>('crm_horarios');
 
+    readonly delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
     /**
      * Registra una falta, retraso o asistencia en el sistema de forma asíncrona.
      */
     public async registrarAsistencia(alumnoId: string, profesorId: string, franja: string, estado: EstadoAsistencia): Promise<boolean> {
         // TODO: El alumno debe implementar la simulación de retraso de red (setTimeout con Promise)
         // y añadir el registro usando el servicio de almacenamiento.
-        throw new Error('Método no implementado');
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        const nuevaAsistencia = {
+
+            id: "1",
+            alumnoId,
+            profesorId,
+            fecha: new Date().toLocaleDateString('en-CA', {timeZone: 'Europe/Madrid'}),
+            franja: franja as FranjaHoraria,
+            estado
+
+        };
+
+        this.asistenciaStorage.add(nuevaAsistencia);
+
+        return true;
     }
 
     /**
