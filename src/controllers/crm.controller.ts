@@ -39,7 +39,21 @@ export class CRMController {
      */
     public async registrarSancion(alumnoId: string, profesorId: string, tipo: TipoSancion, descripcion: string): Promise<void> {
         // TODO: Implementar lógica de inserción asíncrona.
-        throw new Error('Método no implementado');
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        const nuevaSancion = {
+
+            id: "1",
+            alumnoId,
+            profesorId,
+            fecha: new Date().toLocaleDateString('en-CA', {timeZone: 'Europe/Madrid'}),
+            tipo: tipo as TipoSancion,
+            descripcion
+
+        };
+
+        this.sancionesStorage.add(nuevaSancion);
     }
 
     /**
